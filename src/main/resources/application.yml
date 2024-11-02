@@ -6,8 +6,8 @@ spring:
   datasource:
     type: com.zaxxer.hikari.HikariDataSource
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://172.17.0.2:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
-#    url: jdbc:mysql://111.231.13.130:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+#    url: jdbc:mysql://172.17.0.2:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
+    url: jdbc:mysql://111.231.13.130:3306/aurora?serverTimezone=Asia/Shanghai&allowMultiQueries=true
     username: root
     password: 211317wt
     hikari:
@@ -21,8 +21,8 @@ spring:
       connection-test-query: SELECT 1
       
   redis:
-    host: 172.17.0.3      #服务器地址
-#    host: 111.231.13.130
+#    host: 172.17.0.3      #服务器地址
+    host: 111.231.13.130
     port: 6379
     password: 211317wt
     database: 0          #数据库索引
@@ -34,8 +34,8 @@ spring:
         max-wait: 10000
 
   rabbitmq:
-    host: 172.17.0.4
-#    host: 111.231.13.130
+#    host: 172.17.0.4
+    host: 111.231.13.130
     port: 5672
     username: guest
     password: guest
@@ -48,8 +48,8 @@ spring:
 
   elasticsearch:
     rest:
-      uris: 172.17.0.5:9200
-#       uris: 111.231.13.130:9200
+#      uris: 172.17.0.5:9200
+       uris: 111.231.13.130:9200
   mail:
     host: smtp.163.com
     username: 13068799196@163.com
@@ -81,9 +81,9 @@ mybatis-plus:
     log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
     map-underscore-to-camel-case: true
 
+
 search:
   mode: elasticsearch
-
 
 
 website:

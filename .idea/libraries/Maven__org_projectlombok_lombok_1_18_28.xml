@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="Maven: org.projectlombok:lombok:1.18.28">
+    <CLASSES>
+      <root url="jar://D:/Web install/Maven/apache-maven-3.8.7/mvn_resp/org/projectlombok/lombok/1.18.28/lombok-1.18.28.jar!/" />
+    </CLASSES>
+    <JAVADOC>
+      <root url="jar://D:/Web install/Maven/apache-maven-3.8.7/mvn_resp/org/projectlombok/lombok/1.18.28/lombok-1.18.28-javadoc.jar!/" />
+    </JAVADOC>
+    <SOURCES>
+      <root url="jar://D:/Web install/Maven/apache-maven-3.8.7/mvn_resp/org/projectlombok/lombok/1.18.28/lombok-1.18.28-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
