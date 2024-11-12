@@ -5,7 +5,8 @@ import com.wusuowei.entity.ExceptionLog;
 import com.wusuowei.event.ExceptionLogEvent;
 import com.wusuowei.util.ExceptionUtil;
 import com.wusuowei.util.IpUtil;
-import io.swagger.annotations.ApiOperation;
+
+import io.swagger.v3.oas.annotations.Operation;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -18,7 +19,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
@@ -41,7 +42,7 @@ public class ExceptionLogAspect {
         ExceptionLog exceptionLog = new ExceptionLog();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+        Operation operation = method.getAnnotation(Operation.class);
         //获取请求路径
         exceptionLog.setOptUri(Objects.requireNonNull(request).getRequestURI());
         //获取类名
@@ -59,8 +60,8 @@ public class ExceptionLogAspect {
                 exceptionLog.setRequestParam(JSON.toJSONString(joinPoint.getArgs()));
             }
         }
-        if (Objects.nonNull(apiOperation)) {
-            exceptionLog.setOptDesc(apiOperation.value());
+        if (Objects.nonNull(operation)) {
+            exceptionLog.setOptDesc(operation.summary());
         } else {
             exceptionLog.setOptDesc("");
         }

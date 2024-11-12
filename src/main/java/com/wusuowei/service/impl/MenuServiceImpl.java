@@ -79,8 +79,8 @@ public class MenuServiceImpl extends ServiceImpl<MenuMapper, Menu> implements Me
 
     @Override
     public void deleteMenu(Integer menuId) {
-        Integer count = roleMenuMapper.selectCount(new LambdaQueryWrapper<RoleMenu>()
-                .eq(RoleMenu::getMenuId, menuId));
+        Integer count = Math.toIntExact(roleMenuMapper.selectCount(new LambdaQueryWrapper<RoleMenu>()
+                .eq(RoleMenu::getMenuId, menuId)));
         if (count > 0) {
             throw new BizException("菜单下有角色关联");
         }

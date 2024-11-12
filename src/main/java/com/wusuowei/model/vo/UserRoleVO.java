@@ -1,33 +1,31 @@
 package com.wusuowei.model.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@ApiModel(description = "用户权限")
+@Schema(description = "用户权限")
 public class UserRoleVO {
 
     @NotNull(message = "id不能为空")
-    @ApiModelProperty(name = "userInfoId", value = "用户信息id", dataType = "Integer")
+    @Schema(name = "userInfoId", description = "用户信息id", required = true, type = "Integer")
     private Integer userInfoId;
 
     @NotBlank(message = "昵称不能为空")
-    @ApiModelProperty(name = "nickname", value = "昵称", dataType = "String")
+    @Schema(name = "nickname", description = "昵称", required = true, type = "String")
     private String nickname;
 
     @NotNull(message = "用户角色不能为空")
-    @ApiModelProperty(name = "roleList", value = "角色id集合", dataType = "List<Integer>")
+    @Schema(name = "roleIds", description = "角色id集合", required = true, type = "List")
     private List<Integer> roleIds;
-
 }

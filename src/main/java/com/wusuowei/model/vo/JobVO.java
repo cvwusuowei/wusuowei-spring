@@ -1,6 +1,6 @@
 package com.wusuowei.model.vo;
 
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,30 +12,30 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class JobVO {
 
-    @ApiModelProperty(value = "任务id")
+    @Schema(description = "任务id", type = "Integer")
     private Integer id;
 
-    @ApiModelProperty(value = "任务名称")
+    @Schema(description = "任务名称", type = "String")
     private String jobName;
 
-    @ApiModelProperty(value = "任务组名")
+    @Schema(description = "任务组名", type = "String")
     private String jobGroup;
 
-    @ApiModelProperty(value = "调用目标字符串")
+    @Schema(description = "调用目标字符串", type = "String")
     private String invokeTarget;
 
-    @ApiModelProperty(value = "cron执行表达式")
+    @Schema(description = "cron执行表达式", type = "String")
     private String cronExpression;
 
-    @ApiModelProperty(value = "计划执行错误策略（1立即执行 2执行一次 3放弃执行）")
+    @Schema(description = "计划执行错误策略（1立即执行 2执行一次 3放弃执行）", type = "Integer")
     private Integer misfirePolicy;
 
-    @ApiModelProperty(value = "是否并发执行（0允许 1禁止）")
+    @Schema(description = "是否并发执行（0允许 1禁止）", type = "Integer")
     private Integer concurrent;
 
-    @ApiModelProperty(value = "状态（0正常 1暂停）")
+    @Schema(description = "状态（0正常 1暂停）", type = "Integer")
     private Integer status;
 
-    @ApiModelProperty(value = "备注信息")
+    @Schema(description = "备注信息", type = "String")
     private String remark;
 }

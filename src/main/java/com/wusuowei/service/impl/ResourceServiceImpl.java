@@ -94,8 +94,8 @@ public class ResourceServiceImpl extends ServiceImpl<ResourceMapper, Resource> i
 
     @Override
     public void deleteResource(Integer resourceId) {
-        Integer count = roleResourceMapper.selectCount(new LambdaQueryWrapper<RoleResource>()
-                .eq(RoleResource::getResourceId, resourceId));
+        Integer count = Math.toIntExact(roleResourceMapper.selectCount(new LambdaQueryWrapper<RoleResource>()
+                .eq(RoleResource::getResourceId, resourceId)));
         if (count > 0) {
             throw new BizException("该资源下存在角色");
         }

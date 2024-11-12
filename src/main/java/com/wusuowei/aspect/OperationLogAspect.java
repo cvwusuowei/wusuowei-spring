@@ -6,8 +6,8 @@ import com.wusuowei.entity.OperationLog;
 import com.wusuowei.event.OperationLogEvent;
 import com.wusuowei.util.IpUtil;
 import com.wusuowei.util.UserUtil;
-import io.swagger.annotations.Api;
-import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.Aspect;
@@ -20,7 +20,7 @@ import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 import java.lang.reflect.Method;
 import java.util.Objects;
 
@@ -39,21 +39,39 @@ public class OperationLogAspect {
     @SuppressWarnings("unchecked")
     public void saveOperationLog(JoinPoint joinPoint, Object keys) {
         RequestAttributes requestAttributes = RequestContextHolder.getRequestAttributes();
-        HttpServletRequest request = (HttpServletRequest) Objects.requireNonNull(requestAttributes).resolveReference(RequestAttributes.REFERENCE_REQUEST);
+        HttpServletRequest request = (HttpServletRequest) Objects.requireNonNull(requestAttributes)
+                .resolveReference(RequestAttributes.REFERENCE_REQUEST);
         OperationLog operationLog = new OperationLog();
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        Api api = (Api) signature.getDeclaringType().getAnnotation(Api.class);
-        ApiOperation apiOperation = method.getAnnotation(ApiOperation.class);
+
+        // 使用 Swagger 3 的 @Tag 注解
+        Tag tag = (Tag) signature.getDeclaringType().getAnnotation(Tag.class);
+        // 使用 Swagger 3 的 @Operation 注解
+        Operation operation = method.getAnnotation(Operation.class);
         OptLog optLog = method.getAnnotation(OptLog.class);
-        operationLog.setOptModule(api.tags()[0]);
-        operationLog.setOptType(optLog.optType());
-        operationLog.setOptDesc(apiOperation.value());
+
+        // 设置模块信息
+        if (tag != null && tag.name() != null) {
+            operationLog.setOptModule(tag.name());
+        }
+
+        // 设置操作类型
+        if (optLog != null) {
+            operationLog.setOptType(optLog.optType());
+        }
+
+        // 设置操作描述
+        if (operation != null) {
+            operationLog.setOptDesc(operation.summary()); // 使用 summary 或 description
+        }
+
         String className = joinPoint.getTarget().getClass().getName();
         String methodName = method.getName();
         methodName = className + "." + methodName;
         operationLog.setRequestMethod(Objects.requireNonNull(request).getMethod());
         operationLog.setOptMethod(methodName);
+
         if (joinPoint.getArgs().length > 0) {
             if (joinPoint.getArgs()[0] instanceof MultipartFile) {
                 operationLog.setRequestParam("file");
@@ -68,6 +86,7 @@ public class OperationLogAspect {
         operationLog.setIpAddress(ipAddress);
         operationLog.setIpSource(IpUtil.getIpSource(ipAddress));
         operationLog.setOptUri(request.getRequestURI());
+
         applicationContext.publishEvent(new OperationLogEvent(operationLog));
     }
 

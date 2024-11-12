@@ -20,12 +20,14 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")          // 添加路径规则
-                .allowCredentials(true)                // 是否允许在跨域的情况下传递Cookie
-                .allowedHeaders("*")                   // 允许所有的请求头
-                .allowedOrigins("*")                   // 允许请求来源的域规则
+        registry.addMapping("/**")
+                .allowedOriginPatterns("http://111.231.13.130","http://localhost") // Use pattern matching
+                .allowCredentials(true)
+                .allowedHeaders("*")
                 .allowedMethods("*");
     }
+
+
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {

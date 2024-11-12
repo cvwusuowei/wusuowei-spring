@@ -52,9 +52,9 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
 
     @Override
     public PageResultDTO<PhotoAlbumAdminDTO> listPhotoAlbumsAdmin(ConditionVO conditionVO) {
-        Integer count = photoAlbumMapper.selectCount(new LambdaQueryWrapper<PhotoAlbum>()
+        Integer count = Math.toIntExact(photoAlbumMapper.selectCount(new LambdaQueryWrapper<PhotoAlbum>()
                 .like(StringUtils.isNotBlank(conditionVO.getKeywords()), PhotoAlbum::getAlbumName, conditionVO.getKeywords())
-                .eq(PhotoAlbum::getIsDelete, FALSE));
+                .eq(PhotoAlbum::getIsDelete, FALSE)));
         if (count == 0) {
             return new PageResultDTO<>();
         }
@@ -72,9 +72,9 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
     @Override
     public PhotoAlbumAdminDTO getPhotoAlbumByIdAdmin(Integer albumId) {
         PhotoAlbum photoAlbum = photoAlbumMapper.selectById(albumId);
-        Integer photoCount = photoMapper.selectCount(new LambdaQueryWrapper<Photo>()
+        Integer photoCount = Math.toIntExact(photoMapper.selectCount(new LambdaQueryWrapper<Photo>()
                 .eq(Photo::getAlbumId, albumId)
-                .eq(Photo::getIsDelete, FALSE));
+                .eq(Photo::getIsDelete, FALSE)));
         PhotoAlbumAdminDTO album = BeanCopyUtil.copyObject(photoAlbum, PhotoAlbumAdminDTO.class);
         album.setPhotoCount(photoCount);
         return album;
@@ -83,8 +83,8 @@ public class PhotoAlbumServiceImpl extends ServiceImpl<PhotoAlbumMapper, PhotoAl
     @Override
     @Transactional(rollbackFor = Exception.class)
     public void deletePhotoAlbumById(Integer albumId) {
-        Integer count = photoMapper.selectCount(new LambdaQueryWrapper<Photo>()
-                .eq(Photo::getAlbumId, albumId));
+        Integer count = Math.toIntExact(photoMapper.selectCount(new LambdaQueryWrapper<Photo>()
+                .eq(Photo::getAlbumId, albumId)));
         if (count > 0) {
             photoAlbumMapper.updateById(PhotoAlbum.builder()
                     .id(albumId)

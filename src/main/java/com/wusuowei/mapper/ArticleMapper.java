@@ -25,6 +25,7 @@ public interface ArticleMapper extends BaseMapper<Article> {
 
     ArticleDTO getArticleById(@Param("articleId") Integer articleId);
 
+    //获取前一篇文章
     ArticleCardDTO getPreArticleById(@Param("articleId") Integer articleId);
 
     ArticleCardDTO getNextArticleById(@Param("articleId") Integer articleId);

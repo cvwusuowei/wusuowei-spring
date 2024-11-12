@@ -100,7 +100,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<Article>()
                 .eq(Article::getIsDelete, 0)
                 .eq(Article::getStatus, 1);
-        CompletableFuture<Integer> asyncCount = CompletableFuture.supplyAsync(() -> articleMapper.selectCount(queryWrapper));
+        CompletableFuture<Integer> asyncCount = CompletableFuture.supplyAsync(() -> Math.toIntExact(articleMapper.selectCount(queryWrapper)));
         List<ArticleCardDTO> articles = articleMapper.listArticles(PageUtil.getLimitCurrent(), PageUtil.getSize());
         return new PageResultDTO<>(articles, asyncCount.get());
     }
@@ -109,7 +109,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public PageResultDTO<ArticleCardDTO> listArticlesByCategoryId(Integer categoryId) {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<Article>().eq(Article::getCategoryId, categoryId);
-        CompletableFuture<Integer> asyncCount = CompletableFuture.supplyAsync(() -> articleMapper.selectCount(queryWrapper));
+        CompletableFuture<Integer> asyncCount = CompletableFuture.supplyAsync(() -> Math.toIntExact(articleMapper.selectCount(queryWrapper)));
         List<ArticleCardDTO> articles = articleMapper.getArticlesByCategoryId(PageUtil.getLimitCurrent(), PageUtil.getSize(), categoryId);
         return new PageResultDTO<>(articles, asyncCount.get());
     }
@@ -121,6 +121,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         if (Objects.isNull(articleForCheck)) {
             return null;
         }
+        //文章私密状态
         if (articleForCheck.getStatus().equals(2)) {
             Boolean isAccess;
             try {
@@ -132,8 +133,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
                 throw new BizException(ARTICLE_ACCESS_FAIL);
             }
         }
+        //更新文章阅读次数
         updateArticleViewsCount(articleId);
+        //异步获取文章详情和相邻文章：
         CompletableFuture<ArticleDTO> asyncArticle = CompletableFuture.supplyAsync(() -> articleMapper.getArticleById(articleId));
+        //获取前一篇文章
         CompletableFuture<ArticleCardDTO> asyncPreArticle = CompletableFuture.supplyAsync(() -> {
             ArticleCardDTO preArticle = articleMapper.getPreArticleById(articleId);
             if (Objects.isNull(preArticle)) {
@@ -141,6 +145,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             }
             return preArticle;
         });
+        //获取下一篇文章
         CompletableFuture<ArticleCardDTO> asyncNextArticle = CompletableFuture.supplyAsync(() -> {
             ArticleCardDTO nextArticle = articleMapper.getNextArticleById(articleId);
             if (Objects.isNull(nextArticle)) {
@@ -148,10 +153,12 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             }
             return nextArticle;
         });
+
         ArticleDTO article = asyncArticle.get();
         if (Objects.isNull(article)) {
             return null;
         }
+        //获取文章浏览次数
         Double score = redisService.zScore(ARTICLE_VIEWS_COUNT, articleId);
         if (Objects.nonNull(score)) {
             article.setViewCount(score.intValue());
@@ -178,7 +185,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public PageResultDTO<ArticleCardDTO> listArticlesByTagId(Integer tagId) {
         LambdaQueryWrapper<ArticleTag> queryWrapper = new LambdaQueryWrapper<ArticleTag>().eq(ArticleTag::getTagId, tagId);
-        CompletableFuture<Integer> asyncCount = CompletableFuture.supplyAsync(() -> articleTagMapper.selectCount(queryWrapper));
+        CompletableFuture<Integer> asyncCount = CompletableFuture.supplyAsync(() -> Math.toIntExact(articleTagMapper.selectCount(queryWrapper)));
         List<ArticleCardDTO> articles = articleMapper.listArticlesByTagId(PageUtil.getLimitCurrent(), PageUtil.getSize(), tagId);
         return new PageResultDTO<>(articles, asyncCount.get());
     }
@@ -187,7 +194,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
     @Override
     public PageResultDTO<ArchiveDTO> listArchives() {
         LambdaQueryWrapper<Article> queryWrapper = new LambdaQueryWrapper<Article>().eq(Article::getIsDelete, 0).eq(Article::getStatus, 1);
-        CompletableFuture<Integer> asyncCount = CompletableFuture.supplyAsync(() -> articleMapper.selectCount(queryWrapper));
+        CompletableFuture<Integer> asyncCount = CompletableFuture.supplyAsync(() -> Math.toIntExact(articleMapper.selectCount(queryWrapper)));
         List<ArticleCardDTO> articles = articleMapper.listArchives(PageUtil.getLimitCurrent(), PageUtil.getSize());
         HashMap<String, List<ArticleCardDTO>> map = new HashMap<>();
         for (ArticleCardDTO article : articles) {
@@ -247,6 +254,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         article.setUserId(UserUtil.getUserDetailsDTO().getUserInfoId());
         this.saveOrUpdate(article);
         saveArticleTag(articleVO, article.getId());
+        //文章为公开状态,放入rabbitmq队列中,进行订阅通知和es文章同步上传
         if (article.getStatus().equals(1)) {
             rabbitTemplate.convertAndSend(SUBSCRIBE_EXCHANGE, "*", new Message(JSON.toJSONBytes(article.getId()), new MessageProperties()));
         }

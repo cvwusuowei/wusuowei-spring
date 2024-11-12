@@ -12,8 +12,8 @@ import okhttp3.WebSocket;
 import okhttp3.WebSocketListener;
 import org.springframework.stereotype.Component;
 
-import javax.annotation.Nullable;
-import javax.validation.constraints.NotNull;
+import jakarta.annotation.Nullable;
+import jakarta.validation.constraints.NotNull;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;

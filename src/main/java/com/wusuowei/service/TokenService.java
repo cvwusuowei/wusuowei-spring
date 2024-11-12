@@ -3,7 +3,7 @@ package com.wusuowei.service;
 import com.wusuowei.model.dto.UserDetailsDTO;
 import io.jsonwebtoken.Claims;
 
-import javax.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletRequest;
 
 public interface TokenService {
 

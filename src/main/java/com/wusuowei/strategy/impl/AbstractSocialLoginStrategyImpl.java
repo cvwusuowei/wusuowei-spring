@@ -24,8 +24,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
+import jakarta.annotation.Resource;
+import jakarta.servlet.http.HttpServletRequest;
 import java.time.LocalDateTime;
 import java.util.Objects;
 
@@ -59,6 +59,7 @@ public abstract class AbstractSocialLoginStrategyImpl implements SocialLoginStra
         String ipAddress = IpUtil.getIpAddress(request);
         String ipSource = IpUtil.getIpSource(ipAddress);
         UserAuth user = getUserAuth(socialToken);
+        System.err.println(socialToken);
         if (Objects.nonNull(user)) {
             userDetailsDTO = getUserDetail(user, ipAddress, ipSource);
         } else {

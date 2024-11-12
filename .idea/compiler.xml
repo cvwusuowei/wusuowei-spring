@@ -10,7 +10,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
-      <module name="wusuowei-springboot" target="1.8" />
+      <module name="wusuowei-springboot" target="18" />
     </bytecodeTargetLevel>
   </component>
 </project>

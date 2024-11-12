@@ -1,49 +1,46 @@
 package com.wusuowei.model.vo;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@ApiModel(description = "菜单")
+@Schema(description = "菜单")
 public class MenuVO {
 
-    @ApiModelProperty(name = "id", value = "菜单id", dataType = "Integer")
+    @Schema(name = "id", description = "菜单id", type = "Integer")
     private Integer id;
 
     @NotBlank(message = "菜单名不能为空")
-    @ApiModelProperty(name = "name", value = "菜单名", dataType = "String")
+    @Schema(name = "name", description = "菜单名", type = "String")
     private String name;
 
     @NotBlank(message = "菜单icon不能为空")
-    @ApiModelProperty(name = "icon", value = "菜单icon", dataType = "String")
+    @Schema(name = "icon", description = "菜单icon", type = "String")
     private String icon;
 
     @NotBlank(message = "路径不能为空")
-    @ApiModelProperty(name = "path", value = "路径", dataType = "String")
+    @Schema(name = "path", description = "路径", type = "String")
     private String path;
 
     @NotBlank(message = "组件不能为空")
-    @ApiModelProperty(name = "component", value = "组件", dataType = "String")
+    @Schema(name = "component", description = "组件", type = "String")
     private String component;
 
     @NotNull(message = "排序不能为空")
-    @ApiModelProperty(name = "orderNum", value = "排序", dataType = "Integer")
+    @Schema(name = "orderNum", description = "排序", type = "Integer")
     private Integer orderNum;
 
-    @ApiModelProperty(name = "parentId", value = "父id", dataType = "Integer")
+    @Schema(name = "parentId", description = "父id", type = "Integer")
     private Integer parentId;
 
-    @ApiModelProperty(name = "isHidden", value = "是否隐藏", dataType = "Integer")
+    @Schema(name = "isHidden", description = "是否隐藏", type = "Integer")
     private Integer isHidden;
-
 }
