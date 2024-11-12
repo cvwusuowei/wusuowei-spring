@@ -86,7 +86,7 @@ public class WebSecurityConfig {
         http.csrf(csrf -> {
                     try {
                         csrf
-                                .disable() // Disable CSRF protection
+                                .disable() 
                                 .exceptionHandling(exceptionHandling ->
                                         exceptionHandling
                                                 .authenticationEntryPoint(authenticationEntryPoint) // Custom authentication entry point

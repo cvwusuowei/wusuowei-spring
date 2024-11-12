@@ -19,7 +19,6 @@ import com.wusuowei.model.vo.ConditionVO;
 import com.wusuowei.model.vo.ReviewVO;
 import com.wusuowei.service.AuroraInfoService;
 import com.wusuowei.service.CommentService;
-import com.wusuowei.util.GptUtil;
 import com.wusuowei.util.HTMLUtil;
 import com.wusuowei.util.PageUtil;
 import com.wusuowei.util.UserUtil;
@@ -31,6 +30,10 @@ import lombok.SneakyThrows;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
+import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.model.ChatModel;
+import org.springframework.ai.chat.model.ChatResponse;
+import org.springframework.ai.chat.prompt.Prompt;
 import org.springframework.amqp.core.Message;
 import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
@@ -44,7 +47,6 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
-import static com.wusuowei.constant.BigModelConstant.*;
 import static com.wusuowei.constant.CommonConstant.*;
 import static com.wusuowei.constant.RabbitMQConstant.EMAIL_EXCHANGE;
 import static com.wusuowei.enums.CommentTypeEnum.*;
@@ -74,6 +76,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     private RabbitTemplate rabbitTemplate;
 
     private static final List<Integer> types = new ArrayList<>();
+    @Autowired
+    private  ChatModel chatModel;
 
 
     //初始化评论类型枚举
@@ -116,7 +120,7 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @SneakyThrows
     public void saveCommentGPT(CommentVO commentVO){
-
+        
         // 新开一个线程存放问题作为评论，提出问题的人的信息就是当前用户的信息，但是默认情况下Spring Security相关的认证信息是绑定到某个线程上的，
         // 也就是说在此线程以外的其它线程上我们无法获取当前登录用户的信息。比如在我们使用@Async来启用一个新的线程的情况下。所以这里提前得到该用户的信息传递给异步任务
         Integer id =  saveComment(commentVO);
@@ -126,31 +130,16 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         WebsiteConfigDTO websiteConfig = auroraInfoService.getWebsiteConfig();
         Integer isCommentReview = websiteConfig.getIsCommentReview();
         String question = commentVO.getCommentContent();
-        GptListener gpt = new GptListener();
-        // 生成鉴权url
-        String authUrl = GptUtil.getAuthUrl(HOSTURL, APIKEY, APISECRET);
-        OkHttpClient client = new OkHttpClient.Builder().build();
-        String url = authUrl.toString().replace("http://", "ws://").replace("https://", "wss://");
-        Request request = new Request.Builder().url(url).build();
-        gpt.setWsClosed(false);
-        GptListener.setAnswer("");
-        // 构造请求头传递给gpt连接监听类
-        gpt.setQuestion(GptUtil.processQuestion(question));
-        // 向星火模型构造websocket连接
-        WebSocket webSocket = client.newWebSocket(request, gpt);
-        // 循环等待直到得到所有的答案，连接已经关闭
-        while (true){
-            Thread.sleep(200);
-            if(gpt.getWsClosed()){
-                break;
-            }
-        }
+
+        ChatResponse response =  chatModel.call(new Prompt(question));
+
+        
         // 将该答案作为评论的回复存放到数据库之中
         Comment comment = Comment.builder()
                 .userId(1) //先把GPT的身份定位自己的身份1
                 .replyUserId(UserUtil.getUserDetailsDTO().getUserInfoId()) //GPT回复的对象就是当前发出提问的对象
                 .topicId(commentVO.getTopicId())
-                .commentContent(GptListener.getAnswer())
+                .commentContent(response.getResult().getOutput().getContent())
                 .parentId(id)
                 .type(commentVO.getType())
                 .isReview(isCommentReview == TRUE ? FALSE : TRUE)
@@ -267,7 +256,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
                 throw new BizException("参数校验异常");
             }
         }
-
 
         if (Objects.nonNull(commentVO.getParentId())) {
             Comment parentComment = commentMapper.selectOne(new LambdaQueryWrapper<Comment>().select(Comment::getId, Comment::getParentId, Comment::getType).eq(Comment::getId, commentVO.getParentId()));

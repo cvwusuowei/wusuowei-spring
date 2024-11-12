@@ -21,12 +21,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://111.231.13.130","http://localhost") // Use pattern matching
+                .allowedOriginPatterns("http://localhost:*")  // 允许所有本地地址和端口的请求
+                .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowCredentials(true)
-                .allowedHeaders("*")
-                .allowedMethods("*");
+                .allowedHeaders("*");
     }
-
 
 
     @Override

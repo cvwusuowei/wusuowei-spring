@@ -15,17 +15,17 @@ import lombok.NoArgsConstructor;
 @Schema(description = "评论")
 public class CommentVO {
 
-    @Schema(name = "replyUserId", description = "回复用户id", type = "integer", example = "123")
+    @Schema(name = "replyUserId", description = "回复用户id", type = "Integer")
     private Integer replyUserId;
 
-    @Schema(name = "topicId", description = "主题id", type = "integer", example = "456")
+    @Schema(name = "topicId", description = "主题id", type = "Integer")
     private Integer topicId;
 
     @NotBlank(message = "评论内容不能为空")
     @Schema(name = "commentContent", description = "评论内容", required = true, type = "string", example = "This is a comment")
     private String commentContent;
 
-    @Schema(name = "parentId", description = "评论父id", type = "integer", example = "789")
+    @Schema(name = "parentId", description = "评论父id", type = "Integer")
     private Integer parentId;
 
     @NotNull(message = "评论类型不能为空")
