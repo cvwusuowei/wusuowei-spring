@@ -61,6 +61,20 @@
             <groupId>jakarta.persistence</groupId>
             <artifactId>jakarta.persistence-api</artifactId>
         </dependency>
+        <!-- 若不存在Spring Data ES的某个版本支持你下的ES版本,则使用  -->
+        <!-- ES 官方提供的在JAVA环境使用的依赖 -->
+        <dependency>
+            <groupId>co.elastic.clients</groupId>
+            <artifactId>elasticsearch-java</artifactId>
+            <version>8.12.0</version>
+        </dependency>
+
+        <!-- 和第一个依赖是一起的,为了解决springboot项目的兼容性问题  -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+        </dependency>
+
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
@@ -209,6 +223,9 @@
                     <source>18</source>
                     <target>18</target>
                     <encoding>UTF-8</encoding>
+                    <compilerArgs>
+                        <arg>-parameters</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>

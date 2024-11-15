@@ -34,7 +34,6 @@ public class AuthenticationSuccessHandlerImpl implements AuthenticationSuccessHa
 
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws IOException {
-        System.err.println("222");
         UserInfoDTO userLoginDTO = BeanCopyUtil.copyObject(UserUtil.getUserDetailsDTO(), UserInfoDTO.class);
         System.err.println(userLoginDTO);
         if (Objects.nonNull(authentication)) {

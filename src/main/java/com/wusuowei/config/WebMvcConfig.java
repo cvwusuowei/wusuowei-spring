@@ -21,7 +21,7 @@ public class WebMvcConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOriginPatterns("http://localhost:*")  // 允许所有本地地址和端口的请求
+                .allowedOriginPatterns("http://localhost:*","http://111.231.13.130:*")  // 允许所有本地地址和端口的请求
                 .allowedMethods("GET", "POST", "PUT", "DELETE")
                 .allowCredentials(true)
                 .allowedHeaders("*");

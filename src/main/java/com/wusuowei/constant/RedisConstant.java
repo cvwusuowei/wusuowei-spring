@@ -25,4 +25,6 @@ public interface RedisConstant {
 
     String ARTICLE_ACCESS = "article_access:";
 
+    String COMMENT_CHAT = "comment_chat:";
+
 }

@@ -84,9 +84,10 @@ public class WebSecurityConfig {
                 .anyRequest().permitAll();
 
         http.csrf(csrf -> {
+
                     try {
                         csrf
-                                .disable() 
+                                .disable()
                                 .exceptionHandling(exceptionHandling ->
                                         exceptionHandling
                                                 .authenticationEntryPoint(authenticationEntryPoint) // Custom authentication entry point
@@ -95,6 +96,7 @@ public class WebSecurityConfig {
                     } catch (Exception e) {
                         throw new RuntimeException(e);
                     }
+
                 }
         );
 

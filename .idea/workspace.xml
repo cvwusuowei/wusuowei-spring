@@ -4,56 +4,40 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="259254ed-bf54-4b88-a3ab-94b766e0ac68" name="变更" comment="修改版本提交">
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_cloud_ai_spring_ai_alibaba_core_1_0_0_M3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_cloud_ai_spring_ai_alibaba_starter_1_0_0_M3_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_alibaba_dashscope_sdk_java_2_15_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_victools_jsonschema_generator_4_31_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_victools_jsonschema_module_jackson_4_35_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_victools_jsonschema_module_swagger_2_4_35_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_logging_interceptor_4_12_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_okhttp_4_12_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_okhttp_sse_4_12_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okio_okio_3_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okio_okio_jvm_3_6_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_micrometer_micrometer_core_1_13_6.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_reactivex_rxjava2_rxjava_2_2_21.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__io_swagger_core_v3_swagger_annotations_2_2_20.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_bind_jaxb_api_2_3_0.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_ST4_4_3_4.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr4_runtime_4_13_1.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr_runtime_3_5_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hdrhistogram_HdrHistogram_2_2_2.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk7_1_9_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jetbrains_kotlin_kotlin_stdlib_jdk8_1_9_25.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_json_json_20240303.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_latencyutils_LatencyUtils_2_0_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_ai_spring_ai_core_1_0_0_M3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_ai_spring_ai_retry_1_0_0_M3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_ai_spring_ai_spring_boot_autoconfigure_1_0_0_M3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_function_context_4_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_cloud_spring_cloud_function_core_4_1_3.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_springframework_spring_webflux_6_1_14.xml" afterDir="false" />
+    <list default="true" id="259254ed-bf54-4b88-a3ab-94b766e0ac68" name="变更" comment="成功添加阿里ai版本提交">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/strategy/ElasticsearchMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okhttp3_okhttp_4_8_1.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_knuddels_jtokkit_1_1_0.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__com_squareup_okio_okio_2_10_0.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__net_jodah_typetools_0_6_2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_java_websocket_Java_WebSocket_1_3_8.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__co_elastic_clients_elasticsearch_java_8_13_4.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__co_elastic_clients_elasticsearch_java_8_12_0.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_parsson_parsson_1_0_5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_parsson_parsson_1_0_0.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/BlogApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/BlogApplication.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/config/WebMvcConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/config/WebMvcConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/config/WebSecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/config/WebSecurityConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/constant/BigModelConstant.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/constant/RedisConstant.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/constant/RedisConstant.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/consumer/MaxWellConsumer.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/consumer/MaxWellConsumer.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/controller/CommentController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/controller/CommentController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/model/vo/CommentVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/model/vo/CommentVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/handler/AuthenticationSuccessHandlerImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/handler/AuthenticationSuccessHandlerImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/mapper/ElasticsearchMapper.java" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/quartz/AuroraQuartz.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/quartz/AuroraQuartz.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/service/impl/ArticleServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/service/impl/ArticleServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/service/impl/CommentServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/service/impl/CommentServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/util/GptUtil.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/service/impl/RedisServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/service/impl/RedisServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/wusuowei/strategy/impl/EsSearchStrategyImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/wusuowei/strategy/impl/EsSearchStrategyImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/application.yml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.yml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
   </component>
   <component name="Git.Pull.Settings">
     <option name="OPTIONS">
@@ -94,37 +78,40 @@
     <option name="showExcludedFiles" value="false" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RequestMappingsPanelOrder0": "0",
-    "RequestMappingsPanelOrder1": "1",
-    "RequestMappingsPanelWidth0": "75",
-    "RequestMappingsPanelWidth1": "75",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "E:/Github/blog/blog",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "库",
-    "project.structure.proportion": "0.17",
-    "project.structure.side.proportion": "0.2",
-    "run.code.analysis.last.selected.profile": "pProject Default",
-    "settings.editor.selected.configurable": "reference.settings.project.maven.repository.indices",
-    "spring.configuration.checksum": "682023a018b4d63740bc4985e8264b66",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
+    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
+    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
+    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/Github&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;库&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.17&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;,
+    &quot;run.code.analysis.last.selected.profile&quot;: &quot;pProject Default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;vcs.Git&quot;,
+    &quot;spring.configuration.checksum&quot;: &quot;682023a018b4d63740bc4985e8264b66&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="ReactorSettings">
     <option name="notificationShown" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\Github\blog\blog\src\main\resources" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.wusuowei.mapper" />
     </key>
   </component>
   <component name="RunManager" selected="Spring Boot.BlogApplication">
@@ -152,7 +139,7 @@
       <module name="wusuowei-springboot" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.wusuowei.mapper.*" />
+          <option name="PATTERN" value="com.wusuowei.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -167,7 +154,7 @@
       <module name="wusuowei-springboot" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="com.wusuowei.mapper.*" />
+          <option name="PATTERN" value="com.wusuowei.util.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -366,7 +353,17 @@
       <workItem from="1731318436917" duration="7643000" />
       <workItem from="1731329425295" duration="1589000" />
       <workItem from="1731335545345" duration="5994000" />
-      <workItem from="1731397823918" duration="13479000" />
+      <workItem from="1731397823918" duration="18530000" />
+      <workItem from="1731479587139" duration="5732000" />
+      <workItem from="1731486215276" duration="142000" />
+      <workItem from="1731552731226" duration="3412000" />
+      <workItem from="1731557933722" duration="4000" />
+      <workItem from="1731569011586" duration="604000" />
+      <workItem from="1731569687286" duration="8042000" />
+      <workItem from="1731589113954" duration="1281000" />
+      <workItem from="1731633262919" duration="2180000" />
+      <workItem from="1731639058474" duration="991000" />
+      <workItem from="1731648277572" duration="1936000" />
     </task>
     <task id="LOCAL-00001" summary="初始版本提交">
       <created>1730174661937</created>
@@ -529,7 +526,14 @@
       <option name="project" value="LOCAL" />
       <updated>1731404140330</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="成功添加阿里ai版本提交">
+      <created>1731413298767</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1731413298767</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -564,7 +568,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="初始版本提交" />
     <MESSAGE value="修改版本提交" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改版本提交" />
+    <MESSAGE value="成功添加阿里ai版本提交" />
+    <option name="LAST_COMMIT_MESSAGE" value="成功添加阿里ai版本提交" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -578,6 +583,26 @@
           <url>file://$PROJECT_DIR$/src/main/java/com/wusuowei/aspect/ExceptionLogAspect.java</url>
           <line>45</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://D:/Web install/Maven/apache-maven-3.8.7/mvn_resp/org/mybatis/mybatis-spring/3.0.3/mybatis-spring-3.0.3-sources.jar!/org/mybatis/spring/mapper/MapperFactoryBean.java</url>
+          <line>64</line>
+          <option name="timeStamp" value="4" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://D:/Web install/Maven/apache-maven-3.8.7/mvn_resp/org/springframework/spring-context/6.1.14/spring-context-6.1.14.jar!/org/springframework/context/annotation/ClassPathBeanDefinitionScanner.class</url>
+          <line>173</line>
+          <option name="timeStamp" value="5" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://D:/Web install/Maven/apache-maven-3.8.7/mvn_resp/org/springframework/spring-context/6.1.14/spring-context-6.1.14.jar!/org/springframework/context/annotation/ClassPathBeanDefinitionScanner.class</url>
+          <line>181</line>
+          <option name="timeStamp" value="6" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>jar://D:/Web install/Maven/apache-maven-3.8.7/mvn_resp/org/springframework/spring-context/6.1.14/spring-context-6.1.14-sources.jar!/org/springframework/context/annotation/ClassPathBeanDefinitionScanner.java</url>
+          <line>358</line>
+          <option name="timeStamp" value="7" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -3,12 +3,12 @@ package com.wusuowei.quartz;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import com.alibaba.fastjson.JSON;
 import com.wusuowei.entity.*;
-//import com.wusuowei.mapper.ElasticsearchMapper;
 import com.wusuowei.mapper.UniqueViewMapper;
 import com.wusuowei.mapper.UserAuthMapper;
 import com.wusuowei.model.dto.ArticleSearchDTO;
 import com.wusuowei.model.dto.UserAreaDTO;
 import com.wusuowei.service.*;
+import com.wusuowei.strategy.ElasticsearchMapper;
 import com.wusuowei.util.BeanCopyUtil;
 import com.wusuowei.util.IpUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
@@ -50,6 +50,8 @@ public class AuroraQuartz {
 
     @Autowired
     private UniqueViewMapper uniqueViewMapper;
+    @Autowired
+    private ElasticsearchMapper elasticsearchMapper;
 
     @Autowired
     private UserAuthMapper userAuthMapper;
@@ -57,8 +59,7 @@ public class AuroraQuartz {
     @Autowired
     private RestTemplate restTemplate;
 
-    @Autowired
-//    private ElasticsearchMapper elasticsearchMapper;
+
 
 
     @Value("${website.url}")
@@ -128,11 +129,11 @@ public class AuroraQuartz {
         roleResourceService.saveBatch(roleResources);
     }
 
-//    public void importDataIntoES() {
-//        elasticsearchMapper.deleteAll();
-//        List<Article> articles = articleService.list();
-//        for (Article article : articles) {
-//            elasticsearchMapper.save(BeanCopyUtil.copyObject(article, ArticleSearchDTO.class));
-//        }
-//    }
+    public void importDataIntoES() {
+        elasticsearchMapper.deleteAll();
+        List<Article> articles = articleService.list();
+        for (Article article : articles) {
+            elasticsearchMapper.save(BeanCopyUtil.copyObject(article, ArticleSearchDTO.class));
+        }
+    }
 }

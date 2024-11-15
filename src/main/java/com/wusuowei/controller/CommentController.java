@@ -41,7 +41,6 @@ public class CommentController {
     @Operation(summary = "添加GPT问题")
     @PostMapping("/commentsGPT/save")
     public ResultVO<?> saveCommentGPT(@Valid @RequestBody CommentVO commentVO)  {
-        System.err.println("test");
         commentService.saveCommentGPT(commentVO);
         return ResultVO.ok();
     }

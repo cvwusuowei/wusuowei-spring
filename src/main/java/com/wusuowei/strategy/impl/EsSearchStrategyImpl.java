@@ -1,5 +1,7 @@
 //package com.wusuowei.strategy.impl;
 //
+//import co.elastic.clients.elasticsearch._types.query_dsl.MatchQuery;
+//import co.elastic.clients.elasticsearch._types.query_dsl.QueryBuilders;
 //import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 //import com.baomidou.mybatisplus.core.toolkit.StringUtils;
 //import com.wusuowei.model.dto.ArticleSearchDTO;
@@ -9,9 +11,12 @@
 //import org.elasticsearch.index.query.QueryBuilders;
 //import org.elasticsearch.search.fetch.subphase.highlight.HighlightBuilder;
 //import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
+//import org.springframework.data.elasticsearch.client.elc.ElasticsearchTemplate;
+//import org.springframework.data.elasticsearch.client.elc.NativeQueryBuilder;
+//import org.springframework.data.elasticsearch.core.elasticsearchTemplate;
 //import org.springframework.data.elasticsearch.core.SearchHits;
 //import org.springframework.data.elasticsearch.core.query.NativeSearchQueryBuilder;
+//import org.springframework.data.elasticsearch.core.query.Query;
 //import org.springframework.stereotype.Service;
 //
 //import java.util.ArrayList;
@@ -26,7 +31,7 @@
 //public class EsSearchStrategyImpl implements SearchStrategy {
 //
 //    @Autowired
-//    private ElasticsearchRestTemplate elasticsearchRestTemplate;
+//    private ElasticsearchTemplate elasticsearchTemplate;
 //
 //    @Override
 //    public List<ArticleSearchDTO> searchArticle(String keywords) {
@@ -36,11 +41,12 @@
 //        return search(buildQuery(keywords));
 //    }
 //
-//    private NativeSearchQueryBuilder buildQuery(String keywords) {
-//        NativeSearchQueryBuilder nativeSearchQueryBuilder = new NativeSearchQueryBuilder();
-//        BoolQueryBuilder boolQueryBuilder = QueryBuilders.boolQuery();
-//        boolQueryBuilder.must(QueryBuilders.boolQuery().should(QueryBuilders.matchQuery("articleTitle", keywords))
-//                        .should(QueryBuilders.matchQuery("articleContent", keywords)))
+//    private NativeQueryBuilder buildQuery(String keywords) {
+//        NativeQueryBuilder nativeSearchQueryBuilder = new NativeQueryBuilder();
+//        QueryBuilders.bool().
+//                must(QueryBuilders.bool()
+//                        .should(QueryBuilders.match()))
+//                        .should(QueryBuilders.match("articleContent", keywords)))
 //                .must(QueryBuilders.termQuery("isDelete", FALSE))
 //                .must(QueryBuilders.termQuery("status", PUBLIC.getStatus()));
 //        nativeSearchQueryBuilder.withQuery(boolQueryBuilder);
@@ -57,7 +63,7 @@
 //        contentField.fragmentSize(50);
 //        nativeSearchQueryBuilder.withHighlightFields(titleField, contentField);
 //        try {
-//            SearchHits<ArticleSearchDTO> search = elasticsearchRestTemplate.search(nativeSearchQueryBuilder.build(), ArticleSearchDTO.class);
+//            SearchHits<ArticleSearchDTO> search = elasticsearchTemplate.search(nativeSearchQueryBuilder.build(), ArticleSearchDTO.class);
 //            return search.getSearchHits().stream().map(hit -> {
 //                ArticleSearchDTO article = hit.getContent();
 //                List<String> titleHighLightList = hit.getHighlightFields().get("articleTitle");

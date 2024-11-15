@@ -21,6 +21,9 @@ import java.util.Set;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import static com.wusuowei.constant.RedisConstant.ARTICLE_VIEWS_COUNT;
+import static com.wusuowei.constant.RedisConstant.COMMENT_CHAT;
+
 
 @Service
 @SuppressWarnings("all")
@@ -28,6 +31,12 @@ public class RedisServiceImpl implements RedisService {
 
     @Autowired
     private RedisTemplate<String, Object> redisTemplate;
+
+
+    public void comment_chat(String view,String key,String comment){
+        redisTemplate.opsForValue().set(key,comment);
+    }
+
     //操作String写入redis缓存的业务逻辑
     @Override
     public void set(String key, Object value, long time) {

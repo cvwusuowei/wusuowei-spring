@@ -40,6 +40,7 @@ import java.util.*;
 import java.util.concurrent.CompletableFuture;
 import java.util.stream.Collectors;
 
+import static com.wusuowei.constant.RabbitMQConstant.MAXWELL_EXCHANGE;
 import static com.wusuowei.constant.RabbitMQConstant.SUBSCRIBE_EXCHANGE;
 import static com.wusuowei.constant.RedisConstant.*;
 import static com.wusuowei.enums.ArticleStatusEnum.*;
@@ -256,6 +257,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
         saveArticleTag(articleVO, article.getId());
         //文章为公开状态,放入rabbitmq队列中,进行订阅通知和es文章同步上传
         if (article.getStatus().equals(1)) {
+            System.err.println("saveorupdate");
             rabbitTemplate.convertAndSend(SUBSCRIBE_EXCHANGE, "*", new Message(JSON.toJSONBytes(article.getId()), new MessageProperties()));
         }
     }
@@ -380,5 +382,6 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleMapper, Article> impl
             articleTagService.saveBatch(articleTags);
         }
     }
+
 
 }

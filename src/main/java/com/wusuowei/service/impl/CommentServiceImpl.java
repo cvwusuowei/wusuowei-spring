@@ -19,6 +19,7 @@ import com.wusuowei.model.vo.ConditionVO;
 import com.wusuowei.model.vo.ReviewVO;
 import com.wusuowei.service.AuroraInfoService;
 import com.wusuowei.service.CommentService;
+
 import com.wusuowei.util.HTMLUtil;
 import com.wusuowei.util.PageUtil;
 import com.wusuowei.util.UserUtil;
@@ -31,6 +32,9 @@ import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.WebSocket;
 import org.springframework.ai.chat.client.ChatClient;
+import org.springframework.ai.chat.client.advisor.MessageChatMemoryAdvisor;
+import org.springframework.ai.chat.memory.ChatMemory;
+import org.springframework.ai.chat.memory.InMemoryChatMemory;
 import org.springframework.ai.chat.model.ChatModel;
 import org.springframework.ai.chat.model.ChatResponse;
 import org.springframework.ai.chat.prompt.Prompt;
@@ -39,8 +43,9 @@ import org.springframework.amqp.core.MessageProperties;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Service;
-
+import org.springframework.ai.chat.memory.ChatMemory;
 import jakarta.annotation.PostConstruct;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -49,7 +54,10 @@ import java.util.stream.Collectors;
 
 import static com.wusuowei.constant.CommonConstant.*;
 import static com.wusuowei.constant.RabbitMQConstant.EMAIL_EXCHANGE;
+import static com.wusuowei.constant.RedisConstant.COMMENT_CHAT;
 import static com.wusuowei.enums.CommentTypeEnum.*;
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_CONVERSATION_ID_KEY;
+import static org.springframework.ai.chat.client.advisor.AbstractChatMemoryAdvisor.CHAT_MEMORY_RETRIEVE_SIZE_KEY;
 
 @Service
 public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> implements CommentService {
@@ -79,6 +87,8 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
     @Autowired
     private  ChatModel chatModel;
 
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     //初始化评论类型枚举
     @PostConstruct
@@ -120,7 +130,6 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
 
     @SneakyThrows
     public void saveCommentGPT(CommentVO commentVO){
-        
         // 新开一个线程存放问题作为评论，提出问题的人的信息就是当前用户的信息，但是默认情况下Spring Security相关的认证信息是绑定到某个线程上的，
         // 也就是说在此线程以外的其它线程上我们无法获取当前登录用户的信息。比如在我们使用@Async来启用一个新的线程的情况下。所以这里提前得到该用户的信息传递给异步任务
         Integer id =  saveComment(commentVO);
@@ -130,10 +139,23 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         WebsiteConfigDTO websiteConfig = auroraInfoService.getWebsiteConfig();
         Integer isCommentReview = websiteConfig.getIsCommentReview();
         String question = commentVO.getCommentContent();
+        ChatMemory chatMemory = new InMemoryChatMemory();
+        ChatClient chatClient = ChatClient.builder(chatModel)
+                .defaultAdvisors(new MessageChatMemoryAdvisor(chatMemory))
+                .build();
 
-        ChatResponse response =  chatModel.call(new Prompt(question));
+        //对话记忆的唯一标识
+        String conversantId = UserUtil.getUserDetailsDTO().getUsername();
 
-        
+
+        ChatResponse response = chatClient
+                .prompt()
+                .user(question)
+                .advisors(spec -> spec.param(CHAT_MEMORY_CONVERSATION_ID_KEY,conversantId)
+                        .param(CHAT_MEMORY_RETRIEVE_SIZE_KEY, 10))
+                .call()
+                .chatResponse();
+
         // 将该答案作为评论的回复存放到数据库之中
         Comment comment = Comment.builder()
                 .userId(1) //先把GPT的身份定位自己的身份1
@@ -147,6 +169,12 @@ public class CommentServiceImpl extends ServiceImpl<CommentMapper, Comment> impl
         commentMapper.insert(comment);
         if (websiteConfig.getIsEmailNotice().equals(TRUE)) {
             CompletableFuture.runAsync(() -> notice(comment, fromNickname));
+        }
+
+        if (redisTemplate.opsForValue().get(conversantId) == null) {
+            redisTemplate.opsForValue().set(conversantId, response.getResult().getOutput().getContent());
+        } else {
+            redisTemplate.opsForValue().set(conversantId, response.getResult().getOutput().getContent());
         }
     }
 
